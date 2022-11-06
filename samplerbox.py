@@ -331,18 +331,18 @@ if USE_BUTTONS:
     lastbuttontime = 0
     def Buttons():
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(BUTTON_UP, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(BUTTON_DOWN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         global preset, lastbuttontime
         while True:
             now = time.time()
-            if not GPIO.input(18) and (now - lastbuttontime) > 0.2:
+            if not GPIO.input(BUTTON_DOWN) and (now - lastbuttontime) > 0.2:
                 lastbuttontime = now
                 preset -= 1
                 if preset < 0:
                     preset = 127
                 LoadSamples()
-            elif not GPIO.input(17) and (now - lastbuttontime) > 0.2:
+            elif not GPIO.input(BUTTON_UP) and (now - lastbuttontime) > 0.2:
                 lastbuttontime = now
                 preset += 1
                 if preset > 127:
@@ -354,11 +354,27 @@ if USE_BUTTONS:
     ButtonsThread.start()
 
 #########################################
-# 7-SEGMENT DISPLAY
+# DISPLAY
 #
 #########################################
 
-if USE_I2C_7SEGMENTDISPLAY:  # requires: 1) i2c-dev in /etc/modules and 2) dtparam=i2c_arm=on in /boot/config.txt
+if USE_I2C_DISPLAY_16X2:
+    from RPLCD import i2c
+
+    lcdmode = 'i2c'
+    cols = 16
+    rows = 2
+    charmap = 'A00'
+    i2c_expander = 'PCF8574'
+
+    lcd = i2c.CharLCD(i2c_expander, USE_I2C_DISPLAY_ADDRESS, port=port, charmap=charmap, cols=cols, rows=rows)
+
+    def display(s):
+        lcd.write_string(s)
+
+    display('----')
+    time.sleep(0.5)
+elif USE_I2C_7SEGMENTDISPLAY:  # requires: 1) i2c-dev in /etc/modules and 2) dtparam=i2c_arm=on in /boot/config.txt
     import smbus
     bus = smbus.SMBus(1)     # using I2C
     def display(s):
