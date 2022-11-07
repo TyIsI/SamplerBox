@@ -282,7 +282,8 @@ def ActuallyLoad():
     globalvolume = 10 ** (-12.0/20)  # -12dB default global volume
     globaltranspose = 0
     # use current folder (containing 0 Saw) if no user media containing samples has been found
-    samplesdir = SAMPLES_DIR if os.listdir(SAMPLES_DIR) else '.'
+    samplesdir = MAIN_SAMPLES_DIR if os.listdir(
+        MAIN_SAMPLES_DIR) else BACKUP_SAMPLES_DIR
     basename = next((f for f in os.listdir(samplesdir) if f.startswith(
         "%d " % preset)), None)      # or next(glob.iglob("blah*"), None)
 
@@ -465,7 +466,12 @@ if __name__ == "__main__":
             global presetName
 
             lcd.clear()
-            lcd.write_string(presetName)
+
+            if presetName is not None:
+                lcd.write_string(presetName)
+            else:
+                lcd.write_string("----")
+
             lcd.crlf()
 
             code = s[0]
