@@ -4,6 +4,5 @@ numpy
 pyserial
 RPLCD
 rtmidi-python
-serial
 smbus
 sounddevice
