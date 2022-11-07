@@ -1,0 +1,10 @@
+cffi
+cython
+numpy
+pyserial
+RPi
+RPLCD
+rtmidi-python
+serial
+smbus
+sounddevice
