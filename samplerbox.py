@@ -483,7 +483,7 @@ if __name__ == "__main__":
             elif code == "-":
                 lcd.write_string("-")
             else:
-                lcd.write_string("Loaded")
+                lcd.write_string("Ready")
 
         display('----')
         time.sleep(0.5)
