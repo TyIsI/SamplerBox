@@ -367,7 +367,7 @@ if USE_I2C_DISPLAY_16X2:
     charmap = 'A00'
     i2c_expander = 'PCF8574'
 
-    lcd = i2c.CharLCD(i2c_expander, USE_I2C_DISPLAY_ADDRESS, port=port, charmap=charmap, cols=cols, rows=rows)
+    lcd = i2c.CharLCD(i2c_expander, USE_I2C_DISPLAY_ADDRESS, port=USE_I2C_DISPLAY_PORT, charmap=charmap, cols=cols, rows=rows)
 
     def display(s):
         lcd.write_string(s)

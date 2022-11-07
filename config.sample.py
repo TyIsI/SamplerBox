@@ -12,5 +12,6 @@ BUTTON_DOWN = 26                        # Down button
 USE_I2C_7SEGMENTDISPLAY = False         # Set to True to use a 7-segment display via I2C
 USE_I2C_DISPLAY_16X2 = False            # Use a 16x2 display
 USE_I2C_DISPLAY_ADDRESS = 0x3F          # I2C display address
+USE_I2C_DISPLAY_PORT = 1                # I2C port
 USE_SERIALPORT_MIDI = False             # Set to True to enable MIDI IN via SerialPort (e.g. RaspberryPi's GPIO UART pins)
 USE_SYSTEMLED = False                   # Flashing LED after successful boot, only works on RPi/Linux
